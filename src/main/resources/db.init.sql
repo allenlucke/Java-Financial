@@ -7,32 +7,35 @@ CREATE TABLE users (
     acct_created	TIMESTAMP DEFAULT SYSTIMESTAMP,
     last_active		TIMESTAMP DEFAULT SYSTIMESTAMP,
 	user_name		VARCHAR2(20) NOT NULL,
-    password;		VARCHAR2(20) NOT NULL,
-    email;			VARCHAR2(40) NOT NULL,
-    sec_lvl			INT NOT NULL DEFAULT 1,
-    is_active		BOOLEAN DEFAULT TRUE
+    password		VARCHAR2(20) NOT NULL,
+    email			VARCHAR2(40) NOT NULL,
+    sec_lvl			INT DEFAULT 1 NOT NULL,
+    is_active		VARCHAR2(5) DEFAULT 'TRUE'
 );
 
 CREATE TABLE income (
 	id				INT PRIMARY KEY,
-    income_name		VARCHAR2(20) NOT NUULL,
-    recieved		BOOLEAN DEFAULT FALSE,
+    income_name		VARCHAR2(20) NOT NULL,
+    recieved		VARCHAR2(5) DEFAULT 'FALSE',
     due_on			TIMESTAMP,
     recieved_on		TIMESTAMP,
-    recurring		BOOLEAN DEFAULT TRUE,
-    amount_expected	CURRENCY DEFAULT 0.00,
-    amount_actual	CURRENCY DEFAULT 0.00,
-    user_Id 		REFERENCES users(id)
+    recurring		VARCHAR2(5) DEFAULT 'TRUE',
+    amount_expected	NUMBER(12,2) DEFAULT 0.00,
+    amount_actual	NUMBER(12,2) DEFAULT 0.00,
+    users_id 		INT NOT NULL,
+      
+    FOREIGN KEY (users_id)
+      REFERENCES users(id)
 );
 
 CREATE TABLE expenses (
 	id				INT PRIMARY KEY,
-    name			VARCHAR2(20) NOT NUULL,
-    paid			BOOLEAN DEFAULT FALSE,
+    name			VARCHAR2(20) NOT NULL,
+    paid			VARCHAR2(5) DEFAULT 'FALSE',
     due_by			TIMESTAMP,
     paid_on			TIMESTAMP,
-    recurring		BOOLEAN DEFAULT TRUE,
-    amount_due		CURRENCY DEFAULT 0.00,
+    recurring		VARCHAR2(5) DEFAULT 'TRUE',
+    amount_due		NUMBER(1,2) DEFAULT 0.00
 );
 
 
